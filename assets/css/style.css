@@ -717,7 +717,8 @@ h6 {
     font-size: 16px;
     line-height: 1.5;
     text-align: center;
-    height: 920px;
+    min-height: 500px;
+    max-height: 880px
 }
 
 .char {
@@ -726,7 +727,7 @@ h6 {
 
 #rpgTop {
     position: relative;
-    display: block;
+    display: none;
     margin: 0 50px;
     min-width: auto;
     height: 320px;
@@ -734,23 +735,44 @@ h6 {
 
 #rpgMiddle {
     position: relative;
-    display: block;
+    display: none;
     margin: 0 50px;
     min-width: auto;
     height: 320px;
 }
-  
-#rpgBottom {
-    position: relative;
-    display: block;
-    margin: 50px 150px;
-    min-width: auto;
-    height: 50px;
-}
 
 #rpgAttack {
     position: relative;
-    display: inline;
+    display: none;
     margin: 0 50px;
     bottom: 280px;
+}
+
+#gameWon {
+    display: none;
+}
+
+#gameLost {
+    display: none;
+}
+
+#rpgStatus {
+    position: relative;
+    margin: 5px 50px;
+    min-width: auto;
+}
+
+#rpgBottom {
+    position: relative;
+    display: none;
+    margin: 10px 150px;
+    padding: 70px 0;
+    min-width: auto;
+}
+
+#cMessage {
+    position: relative;
+    display: none;
+    margin: 0 50px;
+    bottom: 310px;
 }
