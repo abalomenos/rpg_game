@@ -45,6 +45,7 @@ var winCounter; //counter for each round
 
 var wins = 0;
 var losses = 0;
+var message = ""
 
 var gameState = "notPlaying";
 var charState = "none";
@@ -61,7 +62,7 @@ function clear () {
     for (i = 0; i < characters.length; i++) {
         $("#" + i).remove();
     }
-    
+    $(".rpg").removeClass("rpg").addClass("rpgBG"); // adding CSS animation from animate.css
     $("#characterAttack").html("");
     $("#defenderAttack").html("");
 
@@ -69,26 +70,55 @@ function clear () {
     $("#gameWon").css('display', 'none');
     $("#gameLost").css('display', 'none');
     $("#rpgAttack").css('display', 'none');
+
     $("#rpgTop").css('display', 'block');
     $("#rpgMiddle").css('display', 'block');
     $("#rpgBottom").css('display', 'block');
+    $("#defenderAttack").css('display', 'block');
+    $("#characterAttack").css('display', 'block');
+
+    if ($("#rpgBottom").hasClass("slideInUp")){
+        $("#rpgBottom").removeClass("slideInUp").addClass("bounceInDown");
+    } else {
+        $("#rpgBottom").addClass("animated bounceInDown");
+    }
     $("#showCharacters").css('display', 'block');
     $("#cMessage").css('display', 'inline');
-    $("#cMessage").html("<h3>Select a character!<br>This will be your character.</h3>");
+    $("#cMessage").html("<h3 class='box'>Select a character!<br>This will be your character.</h3>");
+}
+
+//Avoid text selection
+function noText(x){
+    x.attr('unselectable', 'on');
+    x.css('user-select', 'none');
+    x.on('selectstart', false);
+    //return c;
+}
+
+// Function to output messages
+function messageBox(message){
+    //message = "<h3>Select a Defender to attack!<br>Choose wisely " + characters[player].name + ".</h3>"
+    var div = $('<div>');
+    div.html(message);
+    noText(div);
+    return div;
 }
 
 function showCharacters(){
 
     for (var i = 0; i < characters.length; i++) {
         var char = $('<td>');
-        var pic = '<img src = "./assets/images/' + characters[i].pic + '" height="174" width="100">';
+        var pic = '<img src = "./assets/images/' + characters[i].pic + '" height="115" width="66">';
         var name = "<h3>" + characters[i].name + "</h3>";
         var hp = '<h3 class="hp' + i + '">' + characters[i].hp + ' HP</h3>';
         char.attr('id', i);
-        char.addClass("char");
+        char.addClass("char box animated zoomInDown"); // adding char to pull id; adding CSS animation from animate.css
         char.html(name);
         char.append(pic);
         char.append(hp);
+        
+        noText(char);
+
         $("#showCharacters").append(char);
     }
 }
@@ -98,12 +128,17 @@ function characterSelect(char){
         player = char.id;
         $("#" + char.id).remove();
         $("#selectedCharacter").append(char);
-        $("#" + char.id).removeClass('char').addClass('selectedChar'); // changing class name to avoid clicking Player's character
-        $("#cMessage").html("<h3>Select a Defender to attack!<br>Choose wisely " + characters[player].name + ".</h3>");
+        $("#" + char.id).removeClass("char zoomInDown").addClass("bounceInLeft"); // removing class "char" to avoid clicking Player's character; adding CSS animation from animate.css
+        // message = "<h3>Select a Defender to attack!<br>Choose wisely " + characters[player].name + ".</h3>"
+        // var div = $('<div>');
+        // div.html(message);
+        // noText(div);
+        $("#cMessage").html(messageBox("<h3 class='box'>Select a Defender to attack!<br>Choose wisely " + characters[player].name + ".</h3>"));
     } else if (charState == "defenderSelected"){
         defender = char.id;
         $("#" + char.id).remove();
         $("#selectedDefender").append(char);
+        $("#" + char.id).removeClass("zoomInDown").addClass("bounceInRight"); // adding CSS animation from animate.css
     }
 }
 
@@ -111,6 +146,7 @@ function won() {
     winCounter ++;
     $("#rpgAttack").css('display', 'none');
     $("#defeatedDefender").append($("#" + defender));
+    $("#" + defender).removeClass("shake wobble").addClass("fadeInUp"); // adding CSS animation from animate.css
     charState = "characterSelected";
     defenderHP = 1000; // to reset and get next selected defender HP
 
@@ -119,12 +155,19 @@ function won() {
         gameState = "notPlaying";
         wins++;
         $("#wins").html(wins);
-        $("#gameWon").css('display', 'block');
+        //$("#gameWon").css('display', 'block');
         $("#rpgTop").css('display', 'none');
         $("#rpgMiddle").css('display', 'none');
+        $("#defenderAttack").css('display', 'none');
+        $("#characterAttack").css('display', 'none');
+        
+        $("#cMessage").css('display', 'block');
+        $(rpgBottom).addClass("slideInUp"); // adding CSS animation from animate.css
+        $("#cMessage").html(messageBox("<h3 class='centerMessageBox animated bounceInUp'>" + characters[player].name + " you Won!<br>Press the Enter key to play again.</h3>"));
     } else {
         $("#cMessage").css('display', 'inline');
-        $("#cMessage").html("<h3>Defender Defeated! Select another defender.<br>Choose wisely " + characters[player].name + ".</h3>");
+
+        $("#cMessage").html(messageBox("<h3 class='box'>Defender Defeated! Select another defender.<br>Choose wisely " + characters[player].name + ".</h3>"));
     }
 }
 
@@ -145,14 +188,20 @@ function attack(){
     $(".hp" + player).html(playerHP + " HP");
     $(".hp" + defender).html(defenderHP + " HP");
 
-    $("#characterAttack").html("You attacked " + characters[defender].name + " for " + playerAP + " damage!");
-    $("#defenderAttack").html(characters[defender].name + " attacked you for " + characters[defender].cAP + " damage!");
+    $("#characterAttack").html(messageBox("You attacked " + characters[defender].name + " for " + playerAP + " damage!"));
+    $("#defenderAttack").html(messageBox(characters[defender].name + " attacked you for " + characters[defender].cAP + " damage!"));
 
     if (playerHP <= 0) {
         $("#rpgAttack").css('display', 'none');
-        $("#gameLost").css('display', 'block');
         $("#rpgTop").css('display', 'none');
         $("#rpgMiddle").css('display', 'none');
+        $("#defenderAttack").css('display', 'none');
+        $("#characterAttack").css('display', 'none');
+
+        $("#cMessage").css('display', 'block');
+        $(rpgBottom).addClass("bounceInUp"); // adding CSS animation from animate.css
+        $("#cMessage").html(messageBox("<h3 class='centerMessageBox animated bounceInUp'>" + characters[player].name + " You Lost. Better luck next time!<br>Press the Enter key to play again.</h3>"));
+                
         charState = "none";
         gameState = "notPlaying";
         losses++;
@@ -162,7 +211,25 @@ function attack(){
         won();
     }
 
+    // Purely for CSS animation
+    if ($("#" + player).hasClass("bounceInLeft")) {
+        $("#" + player).removeClass("bounceInLeft").addClass("wobble");
+    } else if ($("#" + player).hasClass("wobble")){
+        $("#" + player).removeClass("wobble").addClass("shake");
+    } else {
+        $("#" + player).removeClass("shake").addClass("wobble");
+    }
+
+    // Purely for CSS animation
+    if ($("#" + defender).hasClass("bounceInRight")) {
+        $("#" + defender).removeClass("bounceInRight").addClass("shake");
+    } else if ($("#" + defender).hasClass("shake")){
+        $("#" + defender).removeClass("shake").addClass("wobble");
+    } else {
+        $("#" + defender).removeClass("wobble").addClass("shake");
+    }
     playerAP += characters[player].ap;
+    
 }
 
 

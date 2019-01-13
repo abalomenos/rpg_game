@@ -1,0 +1,156 @@
+/* RPG */
+h3 {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+}
+
+h5 {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: left;
+    color: #357F00;
+}
+
+h6 {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: right;
+    color: #FF0018;
+}
+
+.rpg {
+    padding: 25px;
+    color: #777777;
+    background-color: rgb(255, 255, 255);
+    border-color: #dddddd;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+    height: 500px;
+}
+.rpgBG {
+    padding: 25px;
+    color: #EFFF0D;
+    background-color: rgb(255, 255, 255);
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+    height: 880px;
+    background: url("../images/rpgBG.png") no-repeat center;
+    min-height: 100%;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    image-rendering: auto;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+
+.char {
+    display: inline-block;
+  }
+
+#rpgTop {
+    position: relative;
+    display: none;
+    margin: 0 50px;
+    min-width: auto;
+    height: 250px;
+}
+
+#rpgMiddle {
+    position: relative;
+    display: none;
+    margin: 0 50px;
+    min-width: auto;
+    height: 250px;
+}
+
+#rpgAttack {
+    position: relative;
+    display: none;
+    margin: 0 50px;
+    bottom: 280px;
+}
+
+#gameWon {
+    display: none;
+}
+
+#gameLost {
+    display: none;
+}
+
+#rpgStatus {
+    position: relative;
+    margin: 5px 50px;
+    min-width: auto;
+}
+
+#rpgBottom {
+    background: rgba(0, 0, 0, 0.7);
+    position: relative;
+    display: none;
+    margin: 50px 150px;
+    padding: 30px 50px 70px 50px;
+    min-width: auto;
+}
+
+#cMessage {
+    position: relative;
+    display: none;
+    margin: 0 50px;
+    bottom: 310px;
+}
+
+#attack {
+background-color: #3D9986;
+	color: #ffffff;
+	border: none;
+    padding: 15px 24px;
+    border-radius: 4px; /* rounded corners */
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); /* Shadow effect */
+}
+
+tr#defenderAttack {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 2px;
+    margin: 2px;
+}
+
+tr#characterAttack {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 2px;
+    margin: 2px;
+}
+
+.box {
+    background: rgba(0, 0, 0, 0.7);
+    text-align: center;
+}
+h3.box {
+margin: 0 auto;
+padding: 5px;
+max-width: 420px;
+text-align: center;
+}
+
+.centerMessage {
+    position: relative;
+    margin: 150px auto;
+    padding: 20px;
+}
+
+.centerMessageBox {
+    background: rgba(0, 0, 0, 0.7);
+    position: relative;
+    top: 400px;
+    margin: 120px auto;
+    padding: 15px;
+}
