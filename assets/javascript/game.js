@@ -1,5 +1,5 @@
 
-let characters = [
+var characters = [
     {
         id: 0,
         name: "Obi-Wan Kenobi",
@@ -62,20 +62,26 @@ function clear () {
     for (i = 0; i < characters.length; i++) {
         $("#" + i).remove();
     }
-    $(".rpg").removeClass("rpg").addClass("rpgBG"); // adding CSS animation from animate.css
+    $(".rpgNOBG").removeClass("rpgNOBG").addClass("rpgBG");
     $("#characterAttack").html("");
     $("#defenderAttack").html("");
 
+    $("#rpgCenterTable").removeClass("rpgLeftTable").addClass("rpgCenterTable"); // Switch to rpgLeftTable
+
+    $("#player").css('display', 'none');
+    $("#enemy").css('display', 'none');
+    $("#characters").css('display', 'none');
+    $("#defeatedEnemies").css('display', 'none');
+
     $("#gameStart").css('display', 'none');
-    $("#gameWon").css('display', 'none');
-    $("#gameLost").css('display', 'none');
+    
     $("#rpgAttack").css('display', 'none');
 
     $("#rpgTop").css('display', 'block');
     $("#rpgMiddle").css('display', 'block');
+    $("#rpgStatus").css('display', 'block');
     $("#rpgBottom").css('display', 'block');
-    $("#defenderAttack").css('display', 'block');
-    $("#characterAttack").css('display', 'block');
+    
 
     if ($("#rpgBottom").hasClass("slideInUp")){
         $("#rpgBottom").removeClass("slideInUp").addClass("bounceInDown");
@@ -97,8 +103,7 @@ function noText(x){
 
 // Function to output messages
 function messageBox(message){
-    //message = "<h3>Select a Defender to attack!<br>Choose wisely " + characters[player].name + ".</h3>"
-    var div = $('<div>');
+    var div = $("<div>");
     div.html(message);
     noText(div);
     return div;
@@ -108,10 +113,10 @@ function showCharacters(){
 
     for (var i = 0; i < characters.length; i++) {
         var char = $('<td>');
-        var pic = '<img src = "./assets/images/' + characters[i].pic + '" height="115" width="66">';
-        var name = "<h3>" + characters[i].name + "</h3>";
-        var hp = '<h3 class="hp' + i + '">' + characters[i].hp + ' HP</h3>';
-        char.attr('id', i);
+        var pic = '<img src = "./assets/images/' + characters[i].pic + '" height="100" width="58">';
+        var name = "<h3><font color='#70989d'>" + characters[i].name + "</font></h3>";
+        var hp = "<h3 class='hp" + i + "'><font color='#48ff00'>" + characters[i].hp + "</font> HP</h3>";
+        char.attr("id", i);
         char.addClass("char box animated zoomInDown"); // adding char to pull id; adding CSS animation from animate.css
         char.html(name);
         char.append(pic);
@@ -124,16 +129,23 @@ function showCharacters(){
 }
 
 function characterSelect(char){
+    $("#player").css('display', 'block');
+    $("#enemy").css('display', 'block');
+
+    $("#rpgCenterTable").removeClass("rpgCenterTable").addClass("rpgLeftTable"); // Switch to rpgLeftTable
+
+    $("#characters").css('display', 'block');
+    $("#defeatedEnemies").css('display', 'block');
+    $("#characters").html(messageBox("<th class='charactersTitle'><h6>Remaining Enemies</h6></th>"));
+    $("#defeatedEnemies").html(messageBox("<th class='defeatedEnemiesTitle'><h6>Defeated Enemies</h6></th>"));
+    $("#player").html(messageBox("<th class='playerTitle'><h5>Player</h5></th>"));
+    $("#enemy").html(messageBox("<th class='enemyTitle'><h6>Enemy</h6></th>"));
     if (charState == "characterSelected"){
         player = char.id;
         $("#" + char.id).remove();
         $("#selectedCharacter").append(char);
         $("#" + char.id).removeClass("char zoomInDown").addClass("bounceInLeft"); // removing class "char" to avoid clicking Player's character; adding CSS animation from animate.css
-        // message = "<h3>Select a Defender to attack!<br>Choose wisely " + characters[player].name + ".</h3>"
-        // var div = $('<div>');
-        // div.html(message);
-        // noText(div);
-        $("#cMessage").html(messageBox("<h3 class='box'>Select a Defender to attack!<br>Choose wisely " + characters[player].name + ".</h3>"));
+        $("#cMessage").html(messageBox("<h3 class='box'>Select an enemy to attack!<br>Choose wisely " + characters[player].name + ".</h3>"));
     } else if (charState == "defenderSelected"){
         defender = char.id;
         $("#" + char.id).remove();
@@ -167,7 +179,7 @@ function won() {
     } else {
         $("#cMessage").css('display', 'inline');
 
-        $("#cMessage").html(messageBox("<h3 class='box'>Defender Defeated! Select another defender.<br>Choose wisely " + characters[player].name + ".</h3>"));
+        $("#cMessage").html(messageBox("<h3 class='box'>Enemy Defeated! Select another enemy.<br>Choose wisely " + characters[player].name + ".</h3>"));
     }
 }
 
@@ -185,11 +197,13 @@ function attack(){
     playerHP -= characters[defender].cAP;
     defenderHP -= playerAP;
 
-    $(".hp" + player).html(playerHP + " HP");
-    $(".hp" + defender).html(defenderHP + " HP");
+    $(".hp" + player).html("<font color='#48ff00'>" + playerHP + "</font> HP");
+    $(".hp" + defender).html("<font color='#48ff00'>" + defenderHP + "</font> HP");
 
-    $("#characterAttack").html(messageBox("You attacked " + characters[defender].name + " for " + playerAP + " damage!"));
-    $("#defenderAttack").html(messageBox(characters[defender].name + " attacked you for " + characters[defender].cAP + " damage!"));
+    $("#defenderAttack").css('display', 'block');
+    $("#characterAttack").css('display', 'block');
+    $("#characterAttack").html(messageBox("You attacked " + characters[defender].name + " for <font color='red'>" + playerAP + "</font> damage!"));
+    $("#defenderAttack").html(messageBox(characters[defender].name + " attacked you for <font color='red'>" + characters[defender].cAP + "</font> damage!"));
 
     if (playerHP <= 0) {
         $("#rpgAttack").css('display', 'none');
@@ -265,8 +279,11 @@ window.onload = function() {
     $("#rpgTop").css('display', 'none');
     $("#rpgMiddle").css('display', 'none');
     $("#rpgBottom").css('display', 'none');
-    $("#gameWon").css('display', 'none');
-    $("#gameLost").css('display', 'none');
+    $("#rpgStatus").css('display', 'none');
     $("#rpgAttack").css('display', 'none');
     $("#cMessage").css('display', 'none');
+    $("#defenderAttack").css('display', 'none');
+    $("#characterAttack").css('display', 'none');
+    $("#player").css('display', 'none');
+    $("#enemy").css('display', 'none');
 }

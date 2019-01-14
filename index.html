@@ -42,70 +42,60 @@
                 
             <h2>RPG Game</h2>
             <hr>
-            <h4>Star Wars Themed RPG Game!</h4>
-            <div id="gameStart">
-                <h3 class="centerMessage">Press the Enter key to get started!</h3>
-            </div>
-            <div id="rpgTop">
-                <table class="leftTable">
-                        <tr>
-                            <th><h5>Characters</h5></th>
-                        </tr>
-                        <tr id="showCharacters"></tr>
-                </table>
-                <table class="rightTable">
-                        <tr>
-                            <th><h6>Defeated</h6></th>
-                        </tr>
-                        <tr id="defeatedDefender"></tr>
-                </table>
-            </div>
-            <div id="rpgMiddle">
-                <table class="leftTable">
-                        <tr>
-                            <th><h5>Player</h5></th>
-                        </tr>
-                        <tr id="selectedCharacter"></tr>
-                </table>
-                <table class="rightTable">
-                        <tr>
-                            <th><h6>Enemy</h6></th>
-                        </tr>
-                        <tr id="selectedDefender"></tr>
-                </table>
-            </div>
-            <div id="gameWon">
-                <h3 class="centerMessage">You Won!<br>Press the Enter key to play again.</h3>
-            </div>
-            <div id="gameLost">
-                <h3 class="centerMessage">You Lost. Better luck next time!<br>Press the Enter key to play again.</h3>
-            </div>
-            <div id="rpgStatus">
-                <table class="leftTable">
-                    <tr id="characterAttack"></tr>
-                </table>
-                <table class="rightTable">
-                        <tr id="defenderAttack"></tr>
-                </table>
-            </div>
-            <div id="rpgBottom">
-                <table class="leftTable">
-                    <tr>
-                        <th>Wins:</th>
-                        <td id="wins"></td>
-                    </tr>
-                </table>
-                <table class="rightTable">
-                    <tr>
-                        <th>Losses:</th>
-                        <td id="losses"></td>
-                    </tr>
-                </table>
-            </div>
-            <div id="rpgAttack">
-                    <button id="attack">Attack!</button>
-            </div>
-            <div id="cMessage">
+            <div class="rpgNOBG">
+                <div class="rpgWrap">
+                    <h4 class="box">Star Wars Themed RPG Game!</h4>
+                    <div id="gameStart">
+                        <h3 class="centerMessage">Press the Enter key to get started!</h3>
+                    </div>
+                    <div id="rpgTop">
+                        <table id="rpgCenterTable" class="rpgCenterTable">
+                                <tr id="characters"></tr>
+                                <tr id="showCharacters"></tr>
+                        </table>
+                        <table class="rpgRightTable">
+                                <tr id="defeatedEnemies"></tr>
+                                <tr id="defeatedDefender"></tr>
+                        </table>
+                    </div>
+                    <div id="rpgMiddle">
+                        <table class="rpgLeftTable">
+                                <tr id="player"></tr>
+                                <tr id="selectedCharacter"></tr>
+                        </table>
+                        <table class="rpgRightTable">
+                                <tr id="enemy"></tr>
+                                <tr id="selectedDefender"></tr>
+                        </table>
+                    </div>
+                    <div id="rpgStatus">
+                        <table class="rpgLeftTable">
+                            <tr id="characterAttack"></tr>
+                        </table>
+                        <table class="rpgRightTable">
+                                <tr id="defenderAttack"></tr>
+                        </table>
+                    </div>
+                    <div id="rpgBottom">
+                        <table class="rpgLeftTable">
+                            <tr>
+                                <th>Wins:</th>
+                                <td id="wins">0</td>
+                            </tr>
+                        </table>
+                        <table class="rpgRightTable">
+                            <tr>
+                                <th>Losses:</th>
+                                <td id="losses">0</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="rpgAttack">
+                            <button id="attack" class="attack">Attack!</button>
+                    </div>
+                    <div id="cMessage">
+                    </div>
+                </div>
             </div>
         </div>
     </section>
