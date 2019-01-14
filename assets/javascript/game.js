@@ -50,9 +50,11 @@ var message = ""
 var gameState = "notPlaying";
 var charState = "none";
 
-
+var audioTheme = new Audio("./assets/audio/StarWars.mp3");
+var audioAttack = new Audio("./assets/audio/Lightsaber.mp3");
 
 function clear () {
+    playTheme();
     gameState = "playing";
     winCounter = 0;
     playerAP = 0; // doing this so I dont lose original value for New Game
@@ -91,6 +93,18 @@ function clear () {
     $("#showCharacters").css('display', 'block');
     $("#cMessage").css('display', 'inline');
     $("#cMessage").html("<h3 class='box'>Select a character!<br>This will be your character.</h3>");
+}
+
+function playTheme(){
+    if (!(audioTheme.duration > 0 && !audioTheme.paused)) {
+        audioTheme.currentTime = 0;
+        audioTheme.play();
+    }
+}
+
+function playAttack(){
+        audioAttack.currentTime = 0;
+        audioAttack.play();
 }
 
 //Avoid text selection
@@ -184,6 +198,9 @@ function won() {
 }
 
 function attack(){
+
+    playAttack();
+
     if (playerAP == 0) {
         playerAP = characters[player].ap;  // doing this so I dont lose original value for New Game
     }
@@ -242,6 +259,7 @@ function attack(){
     } else {
         $("#" + defender).removeClass("wobble").addClass("shake");
     }
+
     playerAP += characters[player].ap;
     
 }
