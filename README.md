@@ -28,3 +28,6 @@ Updated version hosted at the following link: [http://www.argirisbalomenos.com/p
 
 ## Demo
 ![Demo1](demo/demo1.png "Demo Star Wars RPG Game")
+
+## Demo
+![Demo2](demo/demo2.png "Demo Star Wars RPG Game")
