@@ -34,6 +34,13 @@ var characters = [
     }
 ]
 
+// const newArray = myArray.map(a => Object.assign({}, a));
+
+// var test = characters.slice();
+// test[0].id = 9;
+// console.log(characters);
+// console.log(test);
+
 var player;
 var defender;
 
@@ -70,7 +77,9 @@ function clear () {
 
     $("#rpgCenterTable").removeClass("rpgLeftTable").addClass("rpgCenterTable"); // Switch to rpgLeftTable
 
-    $("#player").css('display', 'none');
+    // $("#player").css('display', 'none');
+    $("#player").hide();
+    // $("#player").show();
     $("#enemy").css('display', 'none');
     $("#characters").css('display', 'none');
     $("#defeatedEnemies").css('display', 'none');
@@ -95,12 +104,19 @@ function clear () {
     $("#cMessage").html("<h3 class='box'>Select a character!<br>This will be your character.</h3>");
 }
 
+// Play Main Theme
 function playTheme(){
     if (!(audioTheme.duration > 0 && !audioTheme.paused)) {
         audioTheme.currentTime = 0;
         audioTheme.play();
     }
 }
+
+// Loop Main Theme
+audioTheme.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+}, false);
 
 function playAttack(){
         audioAttack.currentTime = 0;
